@@ -1,0 +1,17 @@
+FROM centos:7
+MAINTAINER xmanning <xmanning@centiq.co.uk>
+
+ENV __OS_RELEASE redhat7
+VOLUME /tmp
+
+COPY vebuilder/build.sh /build.sh
+COPY vebuilder/requirements.txt /requirements.txt
+
+WORKDIR /
+
+RUN yum install epel-release -y
+RUN yum install python python-pip -y
+RUN pip install --upgrade pip
+RUN pip install virtualenv
+
+ENTRYPOINT ["/build.sh"]

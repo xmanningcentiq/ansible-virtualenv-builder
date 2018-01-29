@@ -1,0 +1,16 @@
+FROM opensuse:42.3
+MAINTAINER xmanning <xmanning@centiq.co.uk>
+
+ENV __OS_RELEASE sles12
+VOLUME /tmp
+
+COPY vebuilder/build.sh /build.sh
+COPY vebuilder/requirements.txt /requirements.txt
+
+WORKDIR /
+
+RUN zypper --non-interactive install tar python python-pip
+RUN pip install --upgrade pip
+RUN pip install virtualenv
+
+ENTRYPOINT ["/build.sh"]

@@ -1,0 +1,16 @@
+FROM ubuntu:xenial
+MAINTAINER xmanning <xmanning@centiq.co.uk>
+
+ENV __OS_RELEASE ubuntuxenial
+VOLUME /tmp
+
+COPY vebuilder/build.sh /build.sh
+COPY vebuilder/requirements.txt /requirements.txt
+
+WORKDIR /
+
+RUN apt-get update && apt-get install python python-pip -y
+RUN pip install --upgrade pip
+RUN pip install virtualenv
+
+ENTRYPOINT ["/build.sh"]
